@@ -25,7 +25,8 @@
                     </a>
                 </td>
                 <td>
-                    <button type="button" class="btn btn-danger" data-toggle="modal" data-toggle="modal" data-target="#excluirPopUp" data-id={{$flor['_id']}}>Excluir</button>
+                    <button type="button" class="btn btn-danger" data-toggle="modal" data-toggle="modal"
+                        data-target="#excluirPopUp" data-id={{$flor['_id']}}>Excluir</button>
                 </td>
             </tr>
             @empty
@@ -62,12 +63,12 @@
 </div>
 <!-- Script em JS que passa o rapâmetr para o modal -->
 <script type="text/javascript">
-    $('#excluirPopUp').on('show.bs.modal', function(event) {
+    $('#excluirPopUp').on('show.bs.modal', function (event) {
         dd("aqui")
         var button = $(event.relatedTarget) // Botão que acionou o modal
         var recipient = button.data('id') // Extrai informação do atributos data-*
         var modal = $(this)
-        var url = 'flores/' + recipient 
+        var url = 'flores/' + recipient
         modal.find('.botaoExcluir').attr('href', url)
     })
 </script>
