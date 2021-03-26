@@ -97,7 +97,7 @@ class TagsController extends Controller
         $tags=[
             'title' => $request->title,
             'tag' =>  $request->tag,
-            'image' =>  $src = 'data: image/jpeg;base64,'.'title',
+            'image' =>  $request->image
         ];
 
         Http::put($this->server.$id, $tags);
