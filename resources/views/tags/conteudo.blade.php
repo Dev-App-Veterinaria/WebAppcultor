@@ -97,7 +97,7 @@
                     <input type="file" multiple id="addFotoGaleria">
                     <div class="galeria">
                         <img src="{{$tag ['image'] ?? '' }}" alt="Selecione uma imagem" id="image" >
-                        <input type="hidden" id="input-image" name="image">
+                        <input type="hidden" id="input-image" name="image" required>
                     </div>
                 </div>
             </div>

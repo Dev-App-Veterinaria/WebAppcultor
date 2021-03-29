@@ -69,18 +69,18 @@
             @endif
             @csrf
             <div class="form-group">
-                <label class="form-control-label col-sm-2" for="nome">Nomes:</label>
+                <label class="form-control-label col-sm-2" for="names">Nomes:</label>
                 <div class="col-sm-10" class="vector">
-                    <input class="form-control" type="text" class="myInput" id="input-nomes"
+                    <input class="form-control" type="text" class="myInput" id="input-names"
                         placeholder="Digite os nomes" required>
-                    <span onclick="newElement(this)" class="btn btn-primary rounded-pill" id="nomes">Adicionar
+                    <span onclick="newElement(this)" class="btn btn-primary rounded-pill" id="names">Adicionar
                     </span>
                     <div class="col-sm-5">
-                        <ul id="table-nomes" class="lista">
-                            @if(isset($flor))
+                        <ul id="table-names" class="lista">
+                            @if(isset($flor['names']))
                             @foreach( $flor['names'] as $name)
                             <li>
-                                <input class="form-control" name="name" value="{{$name ?? ''}}">
+                                <input class="form-control" name="names" value="{{$name ?? ''}}">
                                 <span class="close">x</span>
                             </li>
                             @endforeach
@@ -109,14 +109,14 @@
             <div class="form-group t-10">
                 <label class="control-label col-sm-2" for="flowerResources">Recursos da Flor:</label>
                 <div class="col-sm-10" class="vector">
-                    <input class="form-control" type="text" class="myInput" id="input-recursos-florais"
+                    <input class="form-control" type="text" class="myInput" id="input-flowerResources"
                         placeholder="Digite a Recursos da Flor" required>
                     <span onclick="newElement(this)" class="btn btn-primary rounded-pill"
-                        id="recursos-florais">Adicionar
+                        id="flowerResources">Adicionar
                     </span>
                     <div class="col-sm-5">
-                        <ul id="table-recursos-florais" class="lista">
-                            @if(isset($flor))
+                        <ul id="table-flowerResources" class="lista">
+                            @if(isset($flor['flowerResources'] ))
                             @foreach( $flor['flowerResources'] as $flowerResources)
                             <li>
                                 <input class="form-control" name="flowerResources" value="{{$flowerResources ?? ''}}">
@@ -131,15 +131,15 @@
             <div class="form-group t-10">
                 <label class="control-label col-sm-2" for="images">Imagens:</label>
                 <div class="col-sm-10" class="vector">
-                    <input class="form-control" type="text" id="input-imagens" placeholder="Imagens">
-                    <span onclick="newElement(this)" class="btn btn-primary rounded-pill" id="imagens">Adicionar
+                    <input class="form-control" type="text" id="input-images" placeholder="Imagens">
+                    <span onclick="newElement(this)" class="btn btn-primary rounded-pill" id="images">Adicionar
                     </span>
                     <div class="col-sm-5">
-                        <ul id="table-imagens" class="lista">
-                            @if(isset($flor))
+                        <ul id="table-images" class="lista">
+                            @if(isset($flor['images']))
                             @foreach( $flor['images'] as $image)
                             <li>
-                                <input class="form-control" name="image" value="{{$image ?? ''}}">
+                                <input class="form-control" name="images" value="{{$image ?? ''}}">
                                 <span class="close">x</span>
                             </li>
                             @endforeach

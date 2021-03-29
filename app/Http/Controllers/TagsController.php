@@ -79,7 +79,7 @@ class TagsController extends Controller
      */
     public function edit($id)
     {
-        $tag = Http::get($this->server.$id);
+        $tag = Http::get($this->server.$id)->json();;
 
         return view('tags/conteudo', ['tag' => $tag]);
     }
@@ -101,7 +101,7 @@ class TagsController extends Controller
         ];
 
         Http::put($this->server.$id, $tags);
-
+        
         return redirect('/tags');
     }
 
