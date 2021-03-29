@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ArtigoController;
 use App\Http\Controllers\FloresController;
+use App\Http\Controllers\TagsController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -26,3 +27,14 @@ Route::get('/flores/{id}/edit', [FloresController::class, 'edit'])->name('flores
 Route::put('/flores/{id}/edit', [FloresController::class, 'update'])->name('flores.update');
 
 Route::get('/flores/{id}', [FloresController::class, 'destroy'])->name('flores.destroy');
+
+//Rotas de tags
+Route::get('/tags', [TagsController::class, 'index'])->name('tags.index');
+
+Route::get('/tags/create', [TagsController::class, 'create'])->name('tags.create');
+Route::post('/tags/create', [TagsController::class, 'store'])->name('tags.store');
+
+Route::get('/tags/{id}/edit', [TagsController::class, 'edit'])->name('tags.edit');
+Route::put('/tags/{id}/edit', [TagsController::class, 'update'])->name('tags.update');
+
+Route::get('/tags/{id}', [TagsController::class, 'destroy'])->name('tags.destroy');

@@ -20,6 +20,8 @@
                         <a href="/flores" class="btn btn-primary rounded-pill">Flores</a>
                         <br><br>
                         <a href="/artigos" class="btn btn-primary rounded-pill">⠀Artigos⠀</a>
+                        <br><br>
+                        <a href="/tags" class="btn btn-primary rounded-pill">Tags</a>
                     </div>
                     <div class="col-lg-6 d-none d-lg-block wow zoomIn">
                         <div class="img-place floating-animate">
