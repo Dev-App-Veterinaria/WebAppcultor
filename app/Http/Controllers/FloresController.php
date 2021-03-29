@@ -55,11 +55,10 @@ class FloresController extends Controller
             'flowerResources' =>  $request->flowerResources,
             'images' =>  $request->images,
             'reference' =>  $request->reference,
-            'author' =>  $request->clinicalManifestation,
+            'author' =>  $request->clinicalManifestation
         ];
 
         Http::post($this->server, $flores);
-
         if($flores){
             return redirect('/flores');
         }
@@ -84,7 +83,7 @@ class FloresController extends Controller
      */
     public function edit($id)
     {
-        $flor = Http::get($this->server.$id);
+        $flor = Http::get($this->server.$id)->json();
 
         return view('flores/conteudo', ['flor' => $flor]);
     }
