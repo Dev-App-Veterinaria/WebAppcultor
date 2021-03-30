@@ -8,6 +8,7 @@ $baseDir = dirname($vendorDir);
 return array(
     'App\\Console\\Kernel' => $baseDir . '/app/Console/Kernel.php',
     'App\\Exceptions\\Handler' => $baseDir . '/app/Exceptions/Handler.php',
+    'App\\Http\\Controllers\\ArtigosController' => $baseDir . '/app/Http/Controllers/ArtigosController.php',
     'App\\Http\\Controllers\\Controller' => $baseDir . '/app/Http/Controllers/Controller.php',
     'App\\Http\\Controllers\\FloresController' => $baseDir . '/app/Http/Controllers/FloresController.php',
     'App\\Http\\Kernel' => $baseDir . '/app/Http/Kernel.php',
