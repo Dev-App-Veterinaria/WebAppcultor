@@ -7,27 +7,23 @@ use Illuminate\Support\Facades\Http;
 
 class FloresController extends Controller
 {
-
     private $server;
 
     public function __construct()
     {
         $this->server = 'http://localhost:3001/api/flower/';
     }
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {   
+    {
+        $flores = Http::get($this->server)->json();
 
-        //$servidor = '172.17.0.1:3001/api/flower';
-        //$flores= Http::get($servidor)->json();
-
-        $flores= Http::get($this->server)->json();
-
-        return view('flores.index', ['flores'=>$flores]);        
+        return view('flores.index', ['flores' => $flores]);
     }
 
     /**
@@ -43,23 +39,24 @@ class FloresController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        $flores=[
+        $flores = [
             'names' => $request->names,
-            'family' =>  $request->family,
-            'scientificName' =>  $request->scientificName,
-            'flowerResources' =>  $request->flowerResources,
-            'images' =>  $request->images,
-            'reference' =>  $request->reference,
-            'author' =>  $request->clinicalManifestation
+            'family' => $request->family,
+            'scientificName' => $request->scientificName,
+            'flowerResources' => $request->flowerResources,
+            'images' => $request->images,
+            'reference' => $request->reference,
+            'author' => $request->clinicalManifestation
         ];
 
         Http::post($this->server, $flores);
-        if($flores){
+
+        if ($flores) {
             return redirect('/flores');
         }
     }
@@ -67,7 +64,7 @@ class FloresController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -78,12 +75,12 @@ class FloresController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
-        $flor = Http::get($this->server.$id)->json();
+        $flor = Http::get($this->server . $id)->json();
 
         return view('flores/conteudo', ['flor' => $flor]);
     }
@@ -91,23 +88,23 @@ class FloresController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
-        $flores= [
+        $flores = [
             'names' => $request->names,
-            'family' =>  $request->family,
-            'scientificName' =>  $request->scientificName,
-            'flowerResources' =>  $request->flowerResources,
-            'images' =>  $request->images,
-            'reference' =>  $request->reference,
-            'author' =>  $request->clinicalManifestation,
+            'family' => $request->family,
+            'scientificName' => $request->scientificName,
+            'flowerResources' => $request->flowerResources,
+            'images' => $request->images,
+            'reference' => $request->reference,
+            'author' => $request->author,
         ];
 
-        Http::put($this->server.$id, $flores);
+        Http::put($this->server . $id, $flores);
 
         return redirect('/flores');
     }
@@ -115,12 +112,12 @@ class FloresController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        Http::delete($this->server.$id);
+        Http::delete($this->server . $id);
         return redirect('/flores');
     }
 }

@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Http;
 
 
 class TagsController extends Controller
-{   
+{
     private $server;
 
     public function __construct()
@@ -15,7 +15,7 @@ class TagsController extends Controller
         $this->server = 'http://localhost:3001/api/tag/';
     }
 
-    
+
     /**
      * Display a listing of the resource.
      *
@@ -23,9 +23,9 @@ class TagsController extends Controller
      */
     public function index()
     {
-        $tags= Http::get($this->server)->json();
+        $tags = Http::get($this->server)->json();
 
-        return view('tags.index', ['tags'=>$tags]); 
+        return view('tags.index', ['tags' => $tags]);
     }
 
     /**
@@ -41,45 +41,33 @@ class TagsController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-     
-        $tags=[
+        $tags = [
             'title' => $request->title,
-            'tag' =>  $request->tag,
-            'image' =>   $request->image
+            'tag' => $request->tag,
+            'image' => $request->image
         ];
 
         Http::post($this->server, $tags);
-               
-        if($tags){
+
+        if ($tags) {
             return redirect('/tags');
         }
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
-        $tag = Http::get($this->server.$id)->json();;
+        $tag = Http::get($this->server . $id)->json();;
 
         return view('tags/conteudo', ['tag' => $tag]);
     }
@@ -87,33 +75,32 @@ class TagsController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
-            
-        $tags=[
+        $tags = [
             'title' => $request->title,
-            'tag' =>  $request->tag,
-            'image' =>  $request->image
+            'tag' => $request->tag,
+            'image' => $request->image
         ];
 
-        Http::put($this->server.$id, $tags);
-        
+        Http::put($this->server . $id, $tags);
+
         return redirect('/tags');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        Http::delete($this->server.$id);
+        Http::delete($this->server . $id);
         return redirect('/tags');
     }
 }
