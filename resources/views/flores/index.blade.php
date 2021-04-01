@@ -26,30 +26,32 @@
                     </table>
 
                 </div>
-                <div class="container">
-                    <a href="{{url('flores/create')}}" style="text-decoration:none">
-                        <button type="button" class="btn btn-success btn-block">Adicionar Flor</button>
-                    </a>
+                <div class="row justify-content-center">
+                    <div class="col-lg-4 py-4">
+                        <div class="team-item">
+                            <a href="{{url('flores/create')}}" style="text-decoration:none">
+                                <button class="btn btn-warning rounded-pill">Adicionar Flor</button>
+                            </a>
+                        </div>
+                    </div>
                 </div>
                 <!-- Pop-up para confirmação de exclusão -->
-                <div class="modal fade" id="excluirPopUp" role="dialog">
+                <div class="modal" id="excluirPopUp" role="dialog">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h4 class="modal-title">Excluir Artigo</h4>
+                                <h4 class="modal-title">Excluir flor</h4>
                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                             </div>
                             <div class="modal-body">
-                                <p>Tem certeza que você deseja excluir esse artigo?</p>
+                                <p>Tem certeza que você deseja excluir essa flor?</p>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-light rounded-pill"
-                                        data-dismiss="modal">Cancelar
-                                </button>
+                                        data-dismiss="modal">Cancelar</button>
                                 <a class="botaoExcluir" style="text-decoration:none">
                                     <button type="button" class="btn btn-danger rounded-pill">Excluir
-                                        artigo
-                                    </button>
+                                        flor</button>
                                 </a>
                             </div>
                         </div>
@@ -59,13 +61,23 @@
         </div>
     </div>
     <script>
+        // Script em JS que passa o rapâmetr para o modal
+        $('#excluirPopUp').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget) // Botão que acionou o modal
+            var recipient = button.data('id') // Extrai informação do atributos data-*
+            var modal = $(this)
+            var url = 'flores/' + recipient
+            modal.find('.botaoExcluir').attr('href', url)
+        })
+
+        //Paginação
         //Recebendo dador do PHP
         <?php isset($flores) ? $floresJson = json_encode($flores) : $floresJson = [];?>
         let artigos = <?php echo $floresJson?>;
         var state = {
             'querySet': artigos,
             'page': 1,
-            'rows': 10,
+            'rows': 5,
             'window': 5,
         }
         buildTable()
@@ -74,7 +86,7 @@
             var trimStart = (page - 1) * rows
             var trimEnd = trimStart + rows
             var trimmedData = querySet.slice(trimStart, trimEnd)
-            var pages = Math.round(querySet.length / rows);
+            var pages = Math.ceil(querySet.length / rows);
             return {
                 'querySet': trimmedData,
                 'pages': pages,
@@ -98,19 +110,19 @@
                 maxRight = pages
             }
             for (var page = maxLeft; page <= maxRight; page++) {
-                let btnClass = "btn-primary";
+                let btnClass = "btn-warning";
                 if (state.page == page) {
                     btnClass = "btn-light";
                 }
                 wrapper.innerHTML += `<button value=${page} class="page btn ${btnClass} rounded-pill">${page}</button>`
             }
             if (state.page != 1) {
-                wrapper.innerHTML = `<button value=${1} class="page btn btn-primary rounded-pill">&#171; Inicio</button>` +
+                wrapper.innerHTML = `<button value=${1} class="page btn btn-warning rounded-pill">&#171; Inicio</button>` +
                     wrapper
                         .innerHTML
             }
             if (state.page != pages) {
-                wrapper.innerHTML += `<button value=${pages} class="page btn btn-primary rounded-pill">Fim &#187;</button>`
+                wrapper.innerHTML += `<button value=${pages} class="page btn btn-warning rounded-pill">Fim &#187;</button>`
             }
             $('.page').on('click', function () {
                 $('#table-body').empty()
@@ -124,12 +136,13 @@
             let ref = "<?php echo url('flores/') ?>";
             let data = pagination(state.querySet, state.page, state.rows);
             let myList = data.querySet;
+
             //Dúvida na linha 137
             for (var i in myList) {
                 //Keep in mind we are using "Template Litterals to create rows"
                 let row = `<tr>
             <th scope="row">${myList[i].scientificName}</th>
-            <td>${myList[i].family}</td>
+            <td>${myList[i].names[0]}</td>
             <td>
                 <button type="button" class="btn btn-danger rounded-pill fas fa-trash"
                     data-toggle="modal" data-target="#excluirPopUp"
@@ -139,7 +152,7 @@
                 <a href="${ref}/${myList[i]._id}/edit"
                     style="text-decoration:none">
                     <button type="button"
-                        class="btn btn-primary rounded-pill fas fa-edit">Editar</button>
+                        class="btn btn-warning rounded-pill fas fa-edit">Editar</button>
                 </a>
             </td>
                   `
@@ -147,15 +160,5 @@
             }
             pageButtons(data.pages)
         }
-    </script>
-    <!-- Script em JS que passa o rapâmetr para o modal -->
-    <script type="text/javascript">
-        $('#excluirPopUp').on('show.bs.modal', function (event) {
-            var button = $(event.relatedTarget) // Botão que acionou o modal
-            var recipient = button.data('id') // Extrai informação do atributos data-*
-            var modal = $(this)
-            var url = 'flores/' + recipient
-            modal.find('.botaoExcluir').attr('href', url)
-        })
     </script>
 @endsection

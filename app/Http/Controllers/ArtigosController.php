@@ -14,10 +14,12 @@ use Illuminate\Support\Facades\Http;
 class ArtigosController extends Controller
 {
     private $server;
+    private $serverTags;
 
     public function __construct()
     {
         $this->server = 'http://localhost:3001/api/article/';
+        $this->serverTags = 'http://localhost:3001/api/tag/';
     }
 
     /**
@@ -39,7 +41,8 @@ class ArtigosController extends Controller
      */
     public function create()
     {
-        return view('artigos.conteudo');
+        $tags = Http::get($this->serverTags)->json();
+        return view('artigos.conteudo', ['tags' => $tags]);
     }
 
     /**
@@ -54,6 +57,8 @@ class ArtigosController extends Controller
             'title' => $request->input('title'),
             'content' => $request->input('content'),
             'tags' => $request->input('tags'),
+            /*'language' => $request->input('language'),
+            'author' => $request->input('author')*/
         ];
 
         Http::post($this->server, $artigo);
@@ -71,8 +76,9 @@ class ArtigosController extends Controller
     public function edit(string $id)
     {
         $artigo = Http::get($this->server . $id);
+        $tags = Http::get($this->serverTags)->json();
 
-        return view('artigos/conteudo', ['artigo' => $artigo]);
+        return view('artigos/conteudo', ['artigo' => $artigo, 'tags' => $tags]);
     }
 
     /**
@@ -88,6 +94,8 @@ class ArtigosController extends Controller
             'title' => $request->input('title'),
             'content' => $request->input('content'),
             'tags' => $request->input('tags'),
+            /*'language' => $request->input('language'),
+            'author' => $request->input('author')*/
         ];
 
         Http::put($this->server . $id, $artigo);
