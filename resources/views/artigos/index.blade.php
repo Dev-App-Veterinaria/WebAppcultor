@@ -26,31 +26,33 @@
                     </table>
                 </div>
 
-                <div class="container">
-                    <a href="{{url('artigos/create')}}" style="text-decoration:none">
-                        <button type="button" class="btn btn-success btn-block">Adicionar Artigo</button>
-                    </a>
+                <div class="row justify-content-center">
+                    <div class="col-lg-4 py-4">
+                        <div class="team-item">
+                            <a href="{{url('artigos/create')}}" style="text-decoration:none">
+                                <button class="btn btn-warning rounded-pill">Adicionar Artigo</button>
+                            </a>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- Pop-up para confirmação de exclusão -->
-                <div class="modal fade" id="excluirPopUp" role="dialog">
+                <div class="modal" id="excluirPopUp" role="dialog">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <h4 class="modal-title">Excluir Artigo</h4>
+                                <h4 class="modal-title">Excluir artigo</h4>
                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
                             </div>
                             <div class="modal-body">
-                                <p>Tem certeza que você deseja excluir esse artigo?</p>
+                                <p>Tem certeza que você deseja excluir essa artigo?</p>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-light rounded-pill"
-                                        data-dismiss="modal">Cancelar
-                                </button>
+                                        data-dismiss="modal">Cancelar</button>
                                 <a class="botaoExcluir" style="text-decoration:none">
                                     <button type="button" class="btn btn-danger rounded-pill">Excluir
-                                        artigo
-                                    </button>
+                                        artigo</button>
                                 </a>
                             </div>
                         </div>
@@ -60,8 +62,8 @@
         </div>
     </div>
 
-    <!-- Script em JS que passa o rapâmetr para o modal -->
-    <script type="text/javascript">
+    <script>
+        // Script em JS que passa o rapâmetr para o modal
         $('#excluirPopUp').on('show.bs.modal', function (event) {
             var button = $(event.relatedTarget) // Botão que acionou o modal
             var recipient = button.data('id') // Extrai informação do atributos data-*
@@ -69,9 +71,8 @@
             var url = 'artigos/' + recipient
             modal.find('.botaoExcluir').attr('href', url)
         })
-    </script>
 
-    <script>
+        //Paginação
         //Recebendo dado do PHP
         <?php isset($artigos) ? $artigosJson = json_encode($artigos) : $artigosJson = [];?>
         let artigos = <?php echo $artigosJson?>;
@@ -87,7 +88,7 @@
             var trimStart = (page - 1) * rows
             var trimEnd = trimStart + rows
             var trimmedData = querySet.slice(trimStart, trimEnd)
-            var pages = Math.round(querySet.length / rows);
+            var pages = Math.ceil(querySet.length / rows);
             return {
                 'querySet': trimmedData,
                 'pages': pages,
@@ -111,19 +112,19 @@
                 maxRight = pages
             }
             for (var page = maxLeft; page <= maxRight; page++) {
-                let btnClass = "btn-primary";
+                let btnClass = "btn-warning";
                 if (state.page == page) {
                     btnClass = "btn-light";
                 }
                 wrapper.innerHTML += `<button value=${page} class="page btn ${btnClass} rounded-pill">${page}</button>`
             }
             if (state.page != 1) {
-                wrapper.innerHTML = `<button value=${1} class="page btn btn-primary rounded-pill">&#171; Inicio</button>` +
+                wrapper.innerHTML = `<button value=${1} class="page btn btn-warning rounded-pill">&#171; Inicio</button>` +
                     wrapper
                         .innerHTML
             }
             if (state.page != pages) {
-                wrapper.innerHTML += `<button value=${pages} class="page btn btn-primary rounded-pill">Fim &#187;</button>`
+                wrapper.innerHTML += `<button value=${pages} class="page btn btn-warning rounded-pill">Fim &#187;</button>`
             }
             $('.page').on('click', function () {
                 $('#table-body').empty()
@@ -154,7 +155,7 @@
                 <a href="${ref}/${myList[i]._id}/edit"
                     style="text-decoration:none">
                     <button type="button"
-                        class="btn btn-primary rounded-pill fas fa-edit">Editar</button>
+                        class="btn btn-warning rounded-pill fas fa-edit">Editar</button>
                 </a>
             </td>
                   `

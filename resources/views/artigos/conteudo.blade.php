@@ -1,56 +1,44 @@
 @extends('template.template')
 @section('conteudo')
     <style>
-        /* Remove margins and padding from the list */
-        .list {
-            margin: 0;
-            padding: 0;
+        #div-preview{
+            border-radius: 10px;
+            width: 280px;
+            height: 400px;
+            border: black;
+            border-width: 1px;
+        }
+        .collapsible-link::before {
+            content: '';
+            width: 14px;
+            height: 2px;
+            background: #333;
+            position: absolute;
+            top: calc(50% - 1px);
+            right: 1rem;
+            display: block;
+            transition: all 0.3s;
         }
 
-        /* Style the list items */
-        .list li {
-            display: flex;
-            flex-direction: row;
-            flex-grow: 1;
-            cursor: pointer;
-            position: relative;
-            padding: 12px 8px 12px 8px;
-            list-style-type: none;
-            background: #eee;
-            font-size: 18px;
-            transition: 0.2s;
-            /* make the list items unselectable */
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
-            user-select: none;
+        /* Vertical line */
+        .collapsible-link::after {
+            content: '';
+            width: 2px;
+            height: 14px;
+            background: #333;
+            position: absolute;
+            top: calc(50% - 7px);
+            right: calc(1rem + 6px);
+            display: block;
+            transition: all 0.3s;
         }
 
-        .list li input {
-            flex: 10;
+        .collapsible-link[aria-expanded='true']::after {
+            transform: rotate(90deg) translateX(-1px);
         }
 
-        /* Set all odd list items to a different color (zebra-stripes) */
-        .list li:nth-child(odd) {
-            background: #f9f9f9;
-        }
-
-        /* Darker background-color on hover */
-        .list li:hover {
-            background: #ddd;
-        }
-
-        /* Style the close button */
-        .close {
-            flex: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .close:hover {
-            background-color: #f44336;
-            color: white;
+        .collapsible-link[aria-expanded='true']::before {
+            transform: rotate(180deg);
         }
     </style>
 
@@ -59,136 +47,149 @@
     </div>
 
     <div class="container">
-        @if(isset($errors) && count($errors)>0)
-            <div class="text-center alert-danger">
-                @foreach($errors->all() as $erro)
-                    {{$erro}}<br>
-                @endforeach
-            </div>
-        @endif
+        <div class="row justify-content-center">
+            <div class="card-page mt-2 col">
+                <div class="card-page">
+                    @if(isset($errors) && count($errors)>0)
+                        <div class="text-center alert-danger">
+                            @foreach($errors->all() as $erro)
+                                {{$erro}}<br>
+                            @endforeach
+                        </div>
+                    @endif
 
-        @if(isset($artigo))
-            <form action name="edit" id="create" method="post" action="{{url('artigos.update')}}">
-                @method('PUT')
-        @else
-            <form action name="create" id="create" method="post" action="{{url('artigos.store')}}">
-        @endif
-            @csrf
-            <div class="form-group t-10">
-                <label class="control-label col-sm-2" for="title">Título:</label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control" id="title" name="title"
-                           placeholder="Digite o título:" value="{{$artigo['title'] ?? ''}}"
-                           required>
+                    @if(isset($artigo))
+                        <form action name="edit" id="create" method="post" action="{{url('artigos.update')}}">
+                            @method('PUT')
+                    @else
+                        <form action name="create" id="create" method="post" action="{{url('artigos.store')}}">
+                    @endif
+                        @csrf
+                        <h5 class="fg-warning">Artigo</h5>
+                        <div class="form-group t-10">
+                            <label class="control-label col-sm-2" for="title">Título:</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="title" name="title"
+                                       placeholder="Digite o título:" value="{{$artigo['title'] ?? ''}}" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group t-10">
+                            <label class="control-label col-sm-2" for="content">Conteúdo:</label>
+                            <div class="col-sm-10">
+                                <textarea name="content"
+                                          id="content">{{$artigo['content'] ?? ''}}</textarea>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-control-label col-sm-2" >Preview:</label>
+                            <div class="col-sm-10">
+                                <div id="div-preview">
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group t-10">
+                            <label class="control-label col-sm-2" for="language">Linguagem:</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="language" name="language"
+                                       placeholder="Digite a linguagem"
+                                       value="{{$artigo['language'] ?? ''}}">
+                            </div>
+                        </div>
+
+                        <div class="form-group t-10">
+                            <label class="control-label col-sm-2" for="author">Autor:</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="author" name="author"
+                                       placeholder="Digite o autor" value="{{$artigo['author'] ?? ''}}">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-control-label col-sm-2" for="input-tags">Selecione as tags:</label>
+                            <div class="col-sm-10">
+                                <div tabindex="-1" id="accordionExample" class="accordion shadow">
+                                    <!-- Accordion item 1 -->
+                                    <div class="card">
+                                        <div id="headingOne" class="card-header bg-white shadow-sm border-0">
+                                            <h6 class="mb-0"><a href="#" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne" class="d-block position-relative text-uppercase collapsible-link">Tags</a></h6>
+                                        </div>
+                                        <div id="collapseOne" aria-labelledby="headingOne" data-parent="#accordionExample" class="collapse">
+                                            <table class="table table-borderless table-responsive-sm">
+                                                <tbody>
+                                                <tr>
+                                                    <td>
+                                                        @foreach($tags as $tag)
+                                                            <input type="checkbox" name="tags[]" value="{{$tag['title']}}">
+                                                            <label>{{$tag['title']}}</label>
+                                                            <br>
+                                                        @endforeach
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row justify-content-center">
+                            <div class="col-lg-4 py-4">
+                                <div class="team-item">
+                                    <button type="submit" class="btn btn-warning rounded-pill" id="btnSalvar">⠀⠀Salvar⠀⠀
+                                    </button>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
-
-            <div class="form-group t-10">
-                <label class="control-label col-sm-2" for="content">Conteudo:</label>
-                <div class="col-sm-10">
-                    <textarea onchange="preview(this)" name="content"
-                              id="content">{{$artigo['content'] ?? ''}}</textarea>
-                </div>
-            </div>
-
-            <div class="form-group t-10">
-                <label class="control-label col-sm-2" for="language">Linguagem:</label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control" id="language" name="language"
-                           placeholder="Digite a linguagem"
-                           value="{{$artigo['language'] ?? ''}}">
-                </div>
-            </div>
-
-            <div class="form-group t-10">
-                <label class="control-label col-sm-2" for="author">Autor:</label>
-                <div class="col-sm-10">
-                    <input type="text" class="form-control" id="author" name="author"
-                           placeholder="Digite o autor" value="{{$artigo['author'] ?? ''}}">
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label class="form-control-label col-sm-2" for="input-tags">Tags:</label>
-                <div class="col-sm-10">
-                    <input class="form-control" type="text" id="input-tags"
-                           placeholder="Digite as tags">
-                    <span onclick="newElement(this)" class="btn btn-primary rounded-pill" id="tags">Adicionar</span>
-                    <div class="col-sm-5">
-                        <ul id="table-tags" class="list">
-                            @if(isset($artigo['tags']))
-                                @foreach( $artigo['tags'] as $tag)
-                                    <li>
-                                        <input class="form-control" name="tags[]" value="{{$tag ?? ''}}">
-                                        <span class="close">x</span>
-                                    </li>
-                                @endforeach
-                            @endif
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <div class="col-sm-offset-2 col-sm-10">
-                    <button type="submit" class="btn btn-success">Cadastrar</button>
-                </div>
-            </div>
-        </form>
+        </div>
     </div>
-
-    <script>
-        function preview(textArea) {
-
-        }
-
-        // Click on a close button to hide the current list item
-        var close = document.getElementsByClassName("close");
-        var i;
-        for (i = 0; i < close.length; i++) {
-            close[i].onclick = function () {
-                var div = this.parentElement;
-                $(div).remove();
-            }
-        }
-
-        // Create a new list item when clicking on the "Add" button
-        function newElement(spanElement) {
-            let id = spanElement.id;
-            var li = document.createElement("li");
-            var inputValue = document.getElementById(`input-${id}`).value;
-            var newInput = document.createElement("input");
-            newInput.value = inputValue;
-            newInput.setAttribute("class", "form-control");
-            newInput.setAttribute("name", id + "[]");
-            li.appendChild(newInput);
-
-            if (inputValue === '') {
-                alert("Você deve digitar algo!");
-            } else {
-                document.getElementById(`table-${id}`).appendChild(li);
-            }
-            document.getElementsByClassName(`table-${id}`).value = "";
-
-            var span = document.createElement("SPAN");
-            var txt = document.createTextNode("\u00D7");
-            span.className = "close";
-            span.appendChild(txt);
-            li.appendChild(span);
-
-            for (i = 0; i < close.length; i++) {
-                close[i].onclick = function () {
-                    var div = this.parentElement;
-                    div.remove();
-                }
-            }
-        }
-    </script>
 
     <script src="/tinymce/js/tinymce/tinymce.min.js"></script>
 
     <script type="text/javascript">
+        document.getElementById('btnSalvar').addEventListener('click', (event) => {
+            let checkBoxInputs = document.getElementsByName('tags[]')
+            let selected = 0
+            checkBoxInputs.forEach(a => {
+                if(a.checked){
+                    selected++
+                }
+            })
+
+            if(selected < 1){
+                document.getElementById('accordionExample').focus()
+                alert("Você deve selecionar alguma tag!")
+                event.preventDefault()
+            }
+        })
+        //Inicialização das tags
+        let tagsRecebidas = `<?php isset($artigo['tags']) ?
+            $givenTags = implode(', ' , $artigo['tags']) : $givenTags = ''; echo $givenTags;?>`;
+        if (tagsRecebidas != '') {
+            let inputTags = document.getElementsByName('tags[]');
+            for (let i = 0; i < inputTags.length; i++) {
+                if (tagsRecebidas.includes(inputTags[i].value)) {
+                    inputTags[i].checked = true;
+                }
+            }
+        }
+
+        //Configurações do tinyMCE
         tinymce.init({
+            setup: function(editor) {
+                editor.on('focusout', function(e) {
+                    let content = editor.getContent()
+                    $('#divPreview').innerHTML = content
+                });
+            },
             paste_data_images: true,
             height: 500,
             language: 'pt_BR',

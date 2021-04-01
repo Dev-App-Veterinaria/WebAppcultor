@@ -19,7 +19,7 @@
                         <div id="pagination-wrapper"></div>
                     </div>
                     @csrf
-                    <table class="table table-striped">
+                    <table class="table table-striped table-responsive-sm">
                         <thead>
                         <tr>
                             <th>Tag</th>
@@ -32,26 +32,33 @@
                     </table>
 
                 </div>
-                <div class="container">
-                    <a href="{{url('tags/create')}}" style="text-decoration:none">
-                        <button type="button" class="btn btn-success btn-block">Adicionar tag</button>
-                    </a>
+
+                <div class="row justify-content-center">
+                    <div class="col-lg-4 py-4">
+                        <div class="team-item">
+                            <a href="{{url('tags/create')}}" style="text-decoration:none">
+                                <button class="btn btn-warning rounded-pill">Adicionar Tag</button>
+                            </a>
+                        </div>
+                    </div>
                 </div>
                 <!-- Pop-up para confirmação de exclusão -->
                 <div class="modal" id="excluirPopUp" role="dialog">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal">&times;</button>
                                 <h4 class="modal-title">Excluir tag</h4>
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
                             </div>
                             <div class="modal-body">
                                 <p>Tem certeza que você deseja excluir essa tag?</p>
                             </div>
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                <button type="button" class="btn btn-light rounded-pill"
+                                        data-dismiss="modal">Cancelar</button>
                                 <a class="botaoExcluir" style="text-decoration:none">
-                                    <button type="button" class="btn btn-danger">Excluir tag</button>
+                                    <button type="button" class="btn btn-danger rounded-pill">Excluir
+                                        tag</button>
                                 </a>
                             </div>
                         </div>
@@ -62,6 +69,16 @@
     </div>
 
     <script>
+        // Script em JS que passa o rapâmetr para o modal
+        $('#excluirPopUp').on('show.bs.modal', function (event) {
+            var button = $(event.relatedTarget) // Botão que acionou o modal
+            var recipient = button.data('id') // Extrai informação do atributos data-*
+            var modal = $(this)
+            var url = 'tags/' + recipient
+            modal.find('.botaoExcluir').attr('href', url)
+        })
+
+        //Paginação
         //Recebendo dador do PHP
         <?php isset($tags) ? $tagsJson = json_encode($tags) : $tagsJson = [];?>
         let artigos = <?php echo $tagsJson?>;
@@ -77,7 +94,7 @@
             var trimStart = (page - 1) * rows
             var trimEnd = trimStart + rows
             var trimmedData = querySet.slice(trimStart, trimEnd)
-            var pages = Math.round(querySet.length / rows);
+            var pages = Math.ceil(querySet.length / rows);
             return {
                 'querySet': trimmedData,
                 'pages': pages,
@@ -101,19 +118,19 @@
                 maxRight = pages
             }
             for (var page = maxLeft; page <= maxRight; page++) {
-                let btnClass = "btn-primary";
+                let btnClass = "btn-warning";
                 if (state.page == page) {
                     btnClass = "btn-light";
                 }
                 wrapper.innerHTML += `<button value=${page} class="page btn ${btnClass} rounded-pill">${page}</button>`
             }
             if (state.page != 1) {
-                wrapper.innerHTML = `<button value=${1} class="page btn btn-primary rounded-pill">&#171; Inicio</button>` +
+                wrapper.innerHTML = `<button value=${1} class="page btn btn-warning rounded-pill">&#171; Inicio</button>` +
                     wrapper
                         .innerHTML
             }
             if (state.page != pages) {
-                wrapper.innerHTML += `<button value=${pages} class="page btn btn-primary rounded-pill">Fim &#187;</button>`
+                wrapper.innerHTML += `<button value=${pages} class="page btn btn-warning rounded-pill">Fim &#187;</button>`
             }
             $('.page').on('click', function () {
                 $('#table-body').empty()
@@ -145,7 +162,7 @@
                 <a href="${ref}/${myList[i]._id}/edit"
                     style="text-decoration:none">
                     <button type="button"
-                        class="btn btn-primary rounded-pill fas fa-edit">Editar</button>
+                        class="btn btn-warning rounded-pill fas fa-edit">Editar</button>
                 </a>
             </td>
                   `
@@ -153,16 +170,5 @@
             }
             pageButtons(data.pages)
         }
-    </script>
-
-    <!-- Script em JS que passa o rapâmetr para o modal -->
-    <script type="text/javascript">
-        $('#excluirPopUp').on('show.bs.modal', function (event) {
-            var button = $(event.relatedTarget) // Botão que acionou o modal
-            var recipient = button.data('id') // Extrai informação do atributos data-*
-            var modal = $(this)
-            var url = 'tags/' + recipient
-            modal.find('.botaoExcluir').attr('href', url)
-        })
     </script>
 @endsection
