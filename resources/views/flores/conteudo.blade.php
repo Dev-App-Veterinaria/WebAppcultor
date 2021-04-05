@@ -53,6 +53,7 @@
             background-color: #f44336;
             color: white;
         }
+
     </style>
     <div class="header_section text-center">
         <h1 class="trends_text">Flor</h1>
@@ -83,7 +84,7 @@
                             <div tabindex="-1" class="col-sm-10 divTable" id="div-inputnames">
                                 <input class="form-control" type="text" id="input-names"
                                        placeholder="Digite os nomes">
-                                <span onclick="newElement(this)" class="btn btn-warning rounded-pill" id="names">Adicionar</span>
+                                <span onclick="newElement(this)" class="btn btn-warning rounded-pill padding" id="names">Adicionar</span>
                                 <div class="col-sm-5">
                                     <ul id="table-names" class="list">
                                         @if(isset($flor['names']))
@@ -122,7 +123,7 @@
                             <div class="col-sm-10 divTable">
                                 <input class="form-control" type="text" id="input-flowerResources"
                                        placeholder="Digite os recursos da flor">
-                                <span onclick="newElement(this)" class="btn btn-warning rounded-pill"
+                                <span onclick="newElement(this)" class="btn btn-warning rounded-pill padding"
                                       id="flowerResources">Adicionar</span>
                                 <div class="col-sm-5">
                                     <ul id="table-flowerResources" class="list">
@@ -143,8 +144,8 @@
                             <label class="control-label col-sm-2" for="input-images">Imagens:</label>
                             <div class="col-sm-10 divTable">
                                 <input class="form-control" type="text" id="input-images" placeholder="Imagens">
-                                <span onclick="newElement(this)" class="btn btn-warning rounded-pill" id="images">Adicionar</span>
-                                <div class="col-sm-5">
+                                <span onclick="newElement(this)" class="btn btn-warning rounded-pill padding" id="images">Adicionar</span>
+                                <div class="col-sm-5 ">
                                     <ul id="table-images" class="list">
                                         @if(isset($flor['images']))
                                             @foreach( $flor['images'] as $image)

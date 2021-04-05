@@ -3,10 +3,8 @@
     <style>
         #div-preview{
             border-radius: 10px;
-            width: 280px;
+            width: 370px;
             height: 400px;
-            border: black;
-            border-width: 1px;
         }
         .collapsible-link::before {
             content: '';
@@ -76,7 +74,7 @@
 
                         <div class="form-group t-10">
                             <label class="control-label col-sm-2" for="content">Conteúdo:</label>
-                            <div class="col-sm-10">
+                            <div id="div-content" tabindex="-1" class="col-sm-10">
                                 <textarea name="content"
                                           id="content">{{$artigo['content'] ?? ''}}</textarea>
                             </div>
@@ -85,9 +83,11 @@
                         <div class="form-group">
                             <label class="form-control-label col-sm-2" >Preview:</label>
                             <div class="col-sm-10">
-                                <div id="div-preview">
-
-                                </div>
+                                <textarea id="div-preview">
+                                    @if(isset($artigo['content']))
+                                        {!!$artigo['content']!!}
+                                    @endif
+                                </textarea>
                             </div>
                         </div>
 
@@ -122,7 +122,14 @@
                                                 <tbody>
                                                 <tr>
                                                     <td>
-                                                        @foreach($tags as $tag)
+                                                        @foreach(array_slice($tags, 0, count($tags)/2 + 1) as $tag)
+                                                            <input type="checkbox" name="tags[]" value="{{$tag['title']}}">
+                                                            <label>{{$tag['title']}}</label>
+                                                            <br>
+                                                        @endforeach
+                                                    </td>
+                                                    <td>
+                                                        @foreach(array_slice($tags, count($tags)/2 + 1, count($tags)) as $tag)
                                                             <input type="checkbox" name="tags[]" value="{{$tag['title']}}">
                                                             <label>{{$tag['title']}}</label>
                                                             <br>
@@ -155,8 +162,12 @@
     <script src="/tinymce/js/tinymce/tinymce.min.js"></script>
 
     <script type="text/javascript">
+        <?php isset($artigo['tags']) ? $givenTags = json_encode($artigo['tags']) : $givenTags = ''; ?>
+
         document.getElementById('btnSalvar').addEventListener('click', (event) => {
             let checkBoxInputs = document.getElementsByName('tags[]')
+            let editor = tinymce.get('content')
+
             let selected = 0
             checkBoxInputs.forEach(a => {
                 if(a.checked){
@@ -164,37 +175,54 @@
                 }
             })
 
-            if(selected < 1){
+            if(editor.getContent() == ''){
+                document.getElementById('div-content').focus()
+                alert("Você deve preencher o conteúdo!")
+                event.preventDefault()
+            }else if(selected < 1){
                 document.getElementById('accordionExample').focus()
                 alert("Você deve selecionar alguma tag!")
                 event.preventDefault()
             }
         })
+
         //Inicialização das tags
-        let tagsRecebidas = `<?php isset($artigo['tags']) ?
-            $givenTags = implode(', ' , $artigo['tags']) : $givenTags = ''; echo $givenTags;?>`;
+        let tagsRecebidas = `<?php echo $givenTags;?>`;
+        JSON.parse(tagsRecebidas)
+
         if (tagsRecebidas != '') {
             let inputTags = document.getElementsByName('tags[]');
             for (let i = 0; i < inputTags.length; i++) {
                 if (tagsRecebidas.includes(inputTags[i].value)) {
                     inputTags[i].checked = true;
+                    console.log(inputTags[i].value)
                 }
             }
         }
+
+        tinymce.init({
+            menubar: false,
+            statusbar: false,
+            toolbar: false,
+            selector: '#div-preview',
+            width: 375,
+            contentEditable: false
+        });
 
         //Configurações do tinyMCE
         tinymce.init({
             setup: function(editor) {
                 editor.on('focusout', function(e) {
                     let content = editor.getContent()
-                    $('#divPreview').innerHTML = content
+                    let previewEditor = tinymce.get('div-preview')
+                    previewEditor.setContent(content)
                 });
             },
             paste_data_images: true,
             height: 500,
             language: 'pt_BR',
             path_absolute: "/",
-            selector: 'textarea',
+            selector: '#content',
             relative_urls: false,
             plugins: [
                 "advlist autolink lists link image charmap print preview hr anchor pagebreak",
