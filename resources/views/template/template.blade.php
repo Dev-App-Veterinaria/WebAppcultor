@@ -4,7 +4,9 @@
     .rounded-pill{
         border-radius: 50rem!important;
     }
-
+    .padding {
+        margin-top: 5px;
+    }
 
 </style>
     <head>
@@ -48,7 +50,10 @@
             <div cla    ss="container-fluid">
                 <div class="row">
                     <div class="col-sm-12 col-lg-3">
-                        <div class="logo"><img src="/images/logo.png"></div>
+                        <a href="/">
+                            <div class="logo"><img src="/images/logo.png"></div>
+                        </a>
+
                     </div>
                     <div class="col-sm-4 col-lg-5">
                         <div class="menu-area">
@@ -89,7 +94,7 @@
                     <div class="col-lg-6 col-md-6 col-sm-6 ">
                         <h2 class="useful_text">Grupos de pesquisa envolvidos</h2>
                         <p class="text-light">• UNAME RESEARCH GROUP</p>
-                        <p class="text-light">• LAPAR</p>
+                        <p class="text-light">• GEAP-UFAPE</p>
                     </div>
                 </div>
             </div>
@@ -97,7 +102,7 @@
         <!-- copyright section start -->
         <div class="copyright">
             <div class="container">
-                <p class="copyright_text">Copyright 2019 All Right Reserved By.<a href="https://html.design"> Free html
+                <p class="copyright_text">Copyright 2021 créditos do template.<a href="https://html.design"> Free html
                         Templates</a></p>
             </div>
         </div>

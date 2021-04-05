@@ -42,7 +42,15 @@ class ArtigosController extends Controller
     public function create()
     {
         $tags = Http::get($this->serverTags)->json();
-        return view('artigos.conteudo', ['tags' => $tags]);
+
+        $tagsFilter = array_filter($tags, function ($tag){
+            if($tag['title'] === 'Sobre o App' || $tag['title'] === 'Flora apícola'){
+                return false;
+            }
+            return true;
+        });
+
+        return view('artigos.conteudo', ['tags' => $tagsFilter]);
     }
 
     /**
@@ -57,8 +65,8 @@ class ArtigosController extends Controller
             'title' => $request->input('title'),
             'content' => $request->input('content'),
             'tags' => $request->input('tags'),
-            /*'language' => $request->input('language'),
-            'author' => $request->input('author')*/
+            'language' => $request->input('language'),
+            'author' => $request->input('author')
         ];
 
         Http::post($this->server, $artigo);
@@ -75,10 +83,17 @@ class ArtigosController extends Controller
      */
     public function edit(string $id)
     {
-        $artigo = Http::get($this->server . $id);
+        $artigo = Http::get($this->server . $id)->json();
         $tags = Http::get($this->serverTags)->json();
 
-        return view('artigos/conteudo', ['artigo' => $artigo, 'tags' => $tags]);
+        $tagsFilter = array_filter($tags, function ($tag){
+            if($tag['title'] === 'Sobre o App' || $tag['title'] === 'Flora apícola'){
+                return false;
+            }
+            return true;
+        });
+
+        return view('artigos/conteudo', ['artigo' => $artigo, 'tags' => $tagsFilter]);
     }
 
     /**
@@ -94,8 +109,8 @@ class ArtigosController extends Controller
             'title' => $request->input('title'),
             'content' => $request->input('content'),
             'tags' => $request->input('tags'),
-            /*'language' => $request->input('language'),
-            'author' => $request->input('author')*/
+            'language' => $request->input('language'),
+            'author' => $request->input('author')
         ];
 
         Http::put($this->server . $id, $artigo);
