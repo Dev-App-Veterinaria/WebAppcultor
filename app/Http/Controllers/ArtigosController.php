@@ -44,7 +44,7 @@ class ArtigosController extends Controller
         $tags = Http::get($this->serverTags)->json();
 
         $tagsFilter = array_filter($tags, function ($tag){
-            if($tag['title'] === 'Sobre o App' || $tag['title'] === 'Flora apícola'){
+            if($tag['title'] == 'Sobre o App' || $tag['title'] == 'Flora apícola'){
                 return false;
             }
             return true;
@@ -84,8 +84,7 @@ class ArtigosController extends Controller
     public function edit(string $id)
     {
         $artigo = Http::get($this->server . $id)->json();
-        $tags = Http::get($this->serverTags)->json();
-
+        $tags = Http::get($this->serverTags)->json();        
         $tagsFilter = array_filter($tags, function ($tag){
             if($tag['title'] === 'Sobre o App' || $tag['title'] === 'Flora apícola'){
                 return false;

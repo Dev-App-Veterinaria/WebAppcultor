@@ -162,7 +162,7 @@
     <script src="/tinymce/js/tinymce/tinymce.min.js"></script>
 
     <script type="text/javascript">
-        <?php isset($artigo['tags']) ? $givenTags = json_encode($artigo['tags']) : $givenTags = ''; ?>
+        <?php isset($artigo['tags']) ? $givenTags = json_encode($artigo['tags']) : $givenTags = '[]'; ?>
 
         document.getElementById('btnSalvar').addEventListener('click', (event) => {
             let checkBoxInputs = document.getElementsByName('tags[]')
