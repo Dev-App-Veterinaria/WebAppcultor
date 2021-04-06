@@ -1,6 +1,7 @@
 @extends('template.template')
 
 @section('conteudo')
+
     <div class="header_section text-center">
         <h1 class="trends_text">Flores</h1>
     </div>
@@ -72,10 +73,12 @@
 
         //Paginação
         //Recebendo dador do PHP
-        <?php isset($flores) ? $floresJson = json_encode($flores) : $floresJson = [];?>
-        let artigos = <?php echo $floresJson?>;
+        <?php 
+        $floresJson;
+        isset($flores) ? $floresJson = json_encode($flores) : $floresJson = '';?>
+        let flores = <?php echo $floresJson?>;
         var state = {
-            'querySet': artigos,
+            'querySet': flores,
             'page': 1,
             'rows': 5,
             'window': 5,
@@ -144,15 +147,15 @@
             <th scope="row">${myList[i].scientificName}</th>
             <td>${myList[i].names[0]}</td>
             <td>
-                <button type="button" class="btn btn-danger rounded-pill fas fa-trash"
+                <button type="button" class="btn btn-danger rounded-pill fas fa-trash-alt"
                     data-toggle="modal" data-target="#excluirPopUp"
-                    data-id=${myList[i]._id}>Excluir</button>
+                    data-id=${myList[i]._id}></button>
             </td>
             <td>
                 <a href="${ref}/${myList[i]._id}/edit"
                     style="text-decoration:none">
                     <button type="button"
-                        class="btn btn-warning rounded-pill fas fa-edit">Editar</button>
+                        class="btn btn-warning rounded-pill fas fa-edit"></button>
                 </a>
             </td>
                   `

@@ -154,15 +154,15 @@
                 <img class="image" src="${myList[i].image}" alt="">
             </td>
             <td>
-                <button type="button" class="btn btn-danger rounded-pill fas fa-trash"
+                <button type="button" class="btn btn-danger rounded-pill fas fa-trash-alt"
                     data-toggle="modal" data-target="#excluirPopUp"
-                    data-id=${myList[i]._id}>Excluir</button>
+                    data-id=${myList[i]._id}></button>
             </td>
             <td>
                 <a href="${ref}/${myList[i]._id}/edit"
                     style="text-decoration:none">
                     <button type="button"
-                        class="btn btn-warning rounded-pill fas fa-edit">Editar</button>
+                        class="btn btn-warning rounded-pill fas fa-edit"></button>
                 </a>
             </td>
                   `
