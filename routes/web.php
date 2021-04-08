@@ -14,6 +14,8 @@ use App\Http\Controllers\ArtigosController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+//Rotas de login
+Route::view('/login', 'login/index')->name('login');
 //Rota para a tela inicial
 Route::view('/', 'principal/index')->name('index');
 
@@ -49,3 +51,5 @@ Route::get('/artigos/{id}/edit', [ArtigosController::class, 'edit'])->name('arti
 Route::put('/artigos/{id}/edit', [ArtigosController::class, 'update'])->name('artigos.update');
 
 Route::get('/artigos/{id}', [ArtigosController::class, 'destroy'])->name('artigos.destroy');
+
+
