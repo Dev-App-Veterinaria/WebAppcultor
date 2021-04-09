@@ -1,7 +1,7 @@
 @extends('template.template_login')
 	@section('conteudo')
 	<div class="limiter">
-		<div class="header_section" style="display: flex; flex-direction:column; justify-content: center;">
+		<div class="header_section row h-100 justify-content-center align-items-center">
 			<div class="wrap-login100">
 				<div class="login100-pic js-tilt" data-tilt>
 					<img src="images/img-01.png" alt="IMG">
