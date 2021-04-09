@@ -60,7 +60,7 @@
             <div class="row">
                 <div class="col-sm-12 col-lg-3">
                     <a href="/">
-                        <div class="logo"><img src="/images/logo.png"></div>
+                        <div class="logo"><img src="/images/logoAbelha2.png"></div>
                     </a>
 
                 </div>
