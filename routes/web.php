@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FloresController;
 use App\Http\Controllers\TagsController;
 use App\Http\Controllers\ArtigosController;
+use App\Http\Controllers\LoginController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -15,7 +16,10 @@ use App\Http\Controllers\ArtigosController;
 |
 */
 //Rotas de login
-Route::view('/login', 'login/index')->name('login');
+Route::get('/login',[LoginController::class, 'index'])->name('usuario.index');
+Route::post('/login',[LoginController::class, 'login'])->name('usuario.login');
+Route::get('/logout',[LoginController::class, 'logout'])->name('usuario.logout');
+
 //Rota para a tela inicial
 Route::view('/', 'principal/index')->name('index');
 
