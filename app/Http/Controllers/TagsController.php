@@ -13,6 +13,7 @@ class TagsController extends Controller
     public function __construct()
     {
         $this->server = 'http://localhost:3001/api/tag/';
+        $this->middleware('check.session');
     }
 
 
@@ -45,18 +46,18 @@ class TagsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        $tags = [
+    {   
+        $token = session('token', '');
+        $tags = Http::withHeaders(['token'=>"Bearer $token"])->post($this->server,[
             'title' => $request->title,
             'tag' => $request->tag,
             'image' => $request->image
-        ];
-
-        Http::post($this->server, $tags);
-
-        if ($tags) {
-            return redirect('/tags');
-        }
+        ]);
+        $status = $tags->status();
+        if ($status==401) {
+            session()->forget('token'); 
+        }   
+        return redirect('/tags');
     }
 
     /**
@@ -81,14 +82,16 @@ class TagsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $tags = [
+        $token = session('token', '');
+        $tags = Http::withHeaders(['token'=>"Bearer $token"])->put($this->server. $id,[
             'title' => $request->title,
             'tag' => $request->tag,
             'image' => $request->image
-        ];
-
-        Http::put($this->server . $id, $tags);
-
+        ]);
+        $status = $tags->status();
+        if ($status==401) {
+            session()->forget('token'); 
+        }   
         return redirect('/tags');
     }
 

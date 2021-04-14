@@ -12,6 +12,7 @@ class FloresController extends Controller
     public function __construct()
     {
         $this->server = 'http://localhost:3001/api/flower/';
+        $this->middleware('check.session');
     }
 
     /**
@@ -43,8 +44,9 @@ class FloresController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        $flores = [
+    {   
+        $token = session('token', '');
+        $flores = Http::withHeaders(['token'=>"Bearer $token"])->post($this->server,[
             'names' => $request->names,
             'family' => $request->family,
             'scientificName' => $request->scientificName,
@@ -52,13 +54,13 @@ class FloresController extends Controller
             'images' => $request->images,
             'reference' => $request->reference,
             'author' => $request->clinicalManifestation
-        ];
+        ]);
 
-        Http::post($this->server, $flores);
-
-        if ($flores) {
-            return redirect('/flores');
-        }
+        $status = $flores->status();
+        if ($status==401) {
+            session()->forget('token'); 
+        }   
+        return redirect('/flores');
     }
 
     /**
@@ -93,8 +95,9 @@ class FloresController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {
-        $flores = [
+    {   
+        $token = session('token', '');
+        $flores = Http::withHeaders(['token'=>"Bearer $token"])->put($this->server.$id,[
             'names' => $request->names,
             'family' => $request->family,
             'scientificName' => $request->scientificName,
@@ -102,10 +105,12 @@ class FloresController extends Controller
             'images' => $request->images,
             'reference' => $request->reference,
             'author' => $request->author,
-        ];
+        ]);
 
-        Http::put($this->server . $id, $flores);
-
+        $status = $flores->status();
+        if ($status==401) {
+            session()->forget('token'); 
+        }   
         return redirect('/flores');
     }
 
