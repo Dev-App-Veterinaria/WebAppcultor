@@ -20,6 +20,7 @@ class ArtigosController extends Controller
     {
         $this->server = 'http://localhost:3001/api/article/';
         $this->serverTags = 'http://localhost:3001/api/tag/';
+        $this->middleware('check.session');
     }
 
     /**
@@ -60,16 +61,18 @@ class ArtigosController extends Controller
      * @return Application|RedirectResponse|Response|Redirector
      */
     public function store(Request $request)
-    {
-        $artigo = [
+    {   $token = session('token', '');
+        $artigo = Http::withHeaders(['token'=>"Bearer $token"])->post($this->server,[
             'title' => $request->input('title'),
             'content' => $request->input('content'),
             'tags' => $request->input('tags'),
             'language' => $request->input('language'),
             'author' => $request->input('author')
-        ];
-
-        Http::post($this->server, $artigo);
+        ]);
+        $status = $artigo->status();
+        if ($status==401) {
+            session()->forget('token'); 
+        }   
 
         return redirect('/artigos');
     }
@@ -103,16 +106,15 @@ class ArtigosController extends Controller
      * @return Application|RedirectResponse|Response|Redirector
      */
     public function update(Request $request, string $id)
-    {
-        $artigo = [
+    {   
+        $token = session('token', '');
+        $artigo = Http::withHeaders(['token'=>"Bearer $token"])->put($this->server. $id,[
             'title' => $request->input('title'),
             'content' => $request->input('content'),
             'tags' => $request->input('tags'),
             'language' => $request->input('language'),
             'author' => $request->input('author')
-        ];
-
-        Http::put($this->server . $id, $artigo);
+        ]);
 
         return redirect('/artigos');
     }
