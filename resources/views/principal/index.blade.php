@@ -1,7 +1,7 @@
 @extends('template.template')
 
 @section('conteudo')
-<div class="header_section">
+<div class="header_section_gradient">
     <div class="hero-caption pt-5">
         <div class="container h-100">
             <div class="row align-items-center h-100">
