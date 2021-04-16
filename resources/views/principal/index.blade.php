@@ -24,8 +24,8 @@
                         <h1 class="mb-4">Entre para<br> gerenciar os dados!</h1>
                         <div style="width: 150px;">
                             <a href="/login" class="btn btn-light">Login</a>
-                        @endif
-                    </div>
+                        </div>
+                    @endif
                 </div>
                 <div class="col-lg-6 d-none d-lg-block wow zoomIn">
                     <div class="img-place floating-animate">
