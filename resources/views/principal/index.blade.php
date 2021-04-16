@@ -1,7 +1,7 @@
 @extends('template.template')
 
 @section('conteudo')
-<div class="header_section">
+<div class="header_section_gradient">
     <div class="hero-caption pt-5">
         <div class="container h-100">
             <div class="row align-items-center h-100">
@@ -24,8 +24,8 @@
                         <h1 class="mb-4">Entre para<br> gerenciar os dados!</h1>
                         <div style="width: 150px;">
                             <a href="/login" class="btn btn-light">Login</a>
-                        @endif
-                    </div>
+                        </div>
+                    @endif
                 </div>
                 <div class="col-lg-6 d-none d-lg-block wow zoomIn">
                     <div class="img-place floating-animate">
