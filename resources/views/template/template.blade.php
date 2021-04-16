@@ -22,7 +22,7 @@
     <meta name="keywords" content="">
     <meta name="description" content="">
     <meta name="author" content="">
-   
+    <link rel="shortcut icon" href="/images/iconeAbelha.png" type="image/x-icon">
     <link
         rel="stylesheet"
         href="https://use.fontawesome.com/releases/v5.13.0/css/all.css"

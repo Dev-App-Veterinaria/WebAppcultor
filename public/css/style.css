@@ -217,6 +217,15 @@ button {
     padding: 25px 0;
 }
 
+.header_section_gradient{
+    width: 100%;
+    float: left;
+    height: auto;
+    background-size: 100%;
+    background:  linear-gradient(to right, #f8be00, #f8be00, #f8be00, #f8cd00, #f9ca00, #f3e100, #f2f90b) no-repeat;
+    padding: 40px 0;
+}
+
 .logo{
 	width: 100%;
 	float: left;
