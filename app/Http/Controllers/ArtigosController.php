@@ -18,8 +18,8 @@ class ArtigosController extends Controller
 
     public function __construct()
     {
-        $this->server = 'http://localhost:3001/api/article/';
-        $this->serverTags = 'http://localhost:3001/api/tag/';
+        $this->server = env('SERVER_ADDRESS').'article/';
+        $this->serverTags = env('SERVER_ADDRESS').'tag/';
         $this->middleware('check.session');
     }
 

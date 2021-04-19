@@ -15,7 +15,7 @@ class LoginController extends Controller
 
     public function __construct()
     {
-        $this->server = 'http://localhost:3001/api/user/';
+        $this->server = env('SERVER_ADDRESS').'user/';
         
     }
     /**

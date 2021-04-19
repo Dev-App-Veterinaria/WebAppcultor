@@ -13,15 +13,12 @@
                             <a href="/flores">
                                 <button class="btn btn-light btn-block">FLORES</button>
                             </a>
-                            
                             <a href="/artigos">
                                 <button class="btn btn-dark btn-block">ARTIGOS</button>
                             </a>
-                            
                             <a href="/tags">
                                 <button class="btn btn-light btn-block">TAGS</button>
                             </a>
-                            
                             <a href="/usuario">
                                 <button class="btn btn-dark btn-block">USUÁRIO</button>
                             </a>
