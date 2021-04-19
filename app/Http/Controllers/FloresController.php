@@ -11,7 +11,7 @@ class FloresController extends Controller
 
     public function __construct()
     {
-        $this->server = 'http://localhost:3001/api/flower/';
+        $this->server = env('SERVER_ADDRESS').'flower/';
         $this->middleware('check.session');
     }
 

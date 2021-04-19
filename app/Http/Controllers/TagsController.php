@@ -12,7 +12,7 @@ class TagsController extends Controller
 
     public function __construct()
     {
-        $this->server = 'http://localhost:3001/api/tag/';
+        $this->server = env('SERVER_ADDRESS').'tag/';
         $this->middleware('check.session');
     }
 
