@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\MessageBag;
 
 class LoginController extends Controller
 {
@@ -31,16 +34,20 @@ class LoginController extends Controller
             'email' => $request->email,
             'password' =>  $request->password,
         ];
-            
+
         $answer = Http::post($this->server."login", $user);
         if($answer->ok())
         {
             $response = $answer->json();
             session(['token' => $response["token"]]);
+            session(['user_id' => $response["user"]["_id"]]);
+        
+            return redirect('/');
         }
 
-        return redirect('/');
+        return back()->withErrors(['Verifique seu email e/ou senha']);
     }
+
 
     function logout(){
         session()->forget('token');
