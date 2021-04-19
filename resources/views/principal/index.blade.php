@@ -9,17 +9,23 @@
                     @if (session()->has('token'))
                         <h1 class="furniture_text ">Gerencie seus<br>dados aqui!</h1>
                         <h5 class="text-light">Escolha abaixo a categoria do APP que você deseja gerenciar.</h5>
-                        <a href="/flores">
-                            <button class="btn btn-light">FLORES</button>
-                        </a>
-                        <br><br>
-                        <a href="/artigos">
-                            <button class="btn btn-dark">ARTIGOS</button>
-                        </a>
-                        <br><br>
-                        <a href="/tags">
-                            <button class="btn btn-light">TAGS</button>
-                        </a>
+                        <div id="container-buttons">
+                            <a href="/flores">
+                                <button class="btn btn-light btn-block">FLORES</button>
+                            </a>
+                            
+                            <a href="/artigos">
+                                <button class="btn btn-dark btn-block">ARTIGOS</button>
+                            </a>
+                            
+                            <a href="/tags">
+                                <button class="btn btn-light btn-block">TAGS</button>
+                            </a>
+                            
+                            <a href="/usuario">
+                                <button class="btn btn-dark btn-block">USUÁRIO</button>
+                            </a>
+                        </div>
                     @else
                         <h1 class="mb-4">Entre para<br> gerenciar os dados!</h1>
                         <div style="width: 150px;">
@@ -36,4 +42,12 @@
         </div>
     </div>
 </div>
+<style>
+    #container-buttons a{
+        margin: 0.1em;
+    }
+    #container-buttons{
+        width: 150px;
+    }
+</style>
 @endsection

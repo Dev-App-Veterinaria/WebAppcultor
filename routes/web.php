@@ -5,6 +5,7 @@ use App\Http\Controllers\FloresController;
 use App\Http\Controllers\TagsController;
 use App\Http\Controllers\ArtigosController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\UsuariosController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -19,6 +20,10 @@ use App\Http\Controllers\LoginController;
 Route::get('/login',[LoginController::class, 'index'])->name('usuario.index');
 Route::post('/login',[LoginController::class, 'login'])->name('usuario.login');
 Route::get('/logout',[LoginController::class, 'logout'])->name('usuario.logout');
+
+//Rotas de usuarios
+Route::get('/usuario', [UsuariosController::class, 'show'])->name('usuarios.show');
+Route::put('/usuario', [UsuariosController::class, 'update'])->name('usuarios.update');
 
 //Rota para a tela inicial
 Route::view('/', 'principal/index')->name('index');

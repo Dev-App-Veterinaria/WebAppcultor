@@ -29,7 +29,13 @@
 						<i class="fa fa-lock" aria-hidden="true"></i>
 					</span>
 				</div>
-
+				@if($errors->any())
+					<div class="alert alert-danger" style="margin: 0px;">
+					@foreach($errors->all() as $error)
+					  {{ $error }}
+					@endforeach
+					</div>
+				@endif
 				<div class="container-login100-form-btn">
 					<button class="login100-form-btn">
 						Login
@@ -39,4 +45,5 @@
 		</div>
 	</div>
 </div>
+
 @endsection

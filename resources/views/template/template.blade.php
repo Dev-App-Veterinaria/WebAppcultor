@@ -8,6 +8,18 @@
     .padding {
         margin-top: 5px;
     }
+    #btn-logout {
+            width: 100%;
+            padding: 3px 20px !important;
+            text-align: left !important;
+            font-family: 'Quicksand', Arial, Helvetica, sans-serif;
+            background: rgb(255 255 255 / 15%);
+            color: #fff;
+        }
+    #btn-logout:hover {
+            color:black;
+            background: rgb(255 255 255 / 80%);
+        }
 </style>
 
 <head>
@@ -40,7 +52,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
         integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous">
     </script>
-  
+
     <!-- bootstrap css -->
     <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
     <!-- style css -->
@@ -62,27 +74,40 @@
                     <a href="/">
                         <div class="logo"><img src="/images/logoAbelha2.png"></div>
                     </a>
-
                 </div>
                 <div class="col-sm-4 col-lg-5">
                     <div class="menu-area">
                         <nav class="navbar navbar-expand-lg ">
-                            <!-- <a class="navbar-brand" href="#">Menu</a> -->
-                            <button class="navbar-toggler collapsed" type="button" data-toggle="collapse"
-                                data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                                aria-expanded="false" aria-label="Toggle navigation">
-                                <i class="fa fa-bars"></i>
-                            </button>
-                            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                                <ul class="navbar-nav mr-auto">
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="/flores">Flores</a></li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="/artigos">Artigos</a></li>
-                                    <li class="#" href="#">
-                                        <a class="nav-link" href="/tags">Tags</a></li>
-                                </ul>
-                            </div>
+                                <!-- <a class="navbar-brand" href="#">Menu</a> -->
+                                <button class="navbar-toggler collapsed" type="button" data-toggle="collapse"
+                                    data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                                    aria-expanded="false" aria-label="Toggle navigation">
+                                    <i class="fa fa-bars"></i>
+                                </button>
+                                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                                    <div class="navbar-collapse collapse">
+                                    @if (Session::has('token'))
+                                        <ul class="navbar-nav mr-auto">
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="/flores">Flores</a>
+                                            </li>
+                                            <li class="nav-item">
+                                                <a class="nav-link" href="/artigos">Artigos</a>
+                                            </li>
+                                            <li class="#" href="#">
+                                                <a class="nav-link" href="/tags">Tags</a>
+                                            </li>
+                                           <li class="nav-item">
+                                                <a class="nav-link" href="/usuario">Usuário</a>
+                                           </li>
+                                            <li class="nav-item active">
+                                                <a href="/logout" class="nav-link">
+                                                    <button type="button" id="btn-logout" class="btn">Sair</button>
+                                                </a> 
+                                            </li>
+                                        </ul>
+                                    @endif
+                                </div>
                         </nav>
                     </div>
                 </div>
