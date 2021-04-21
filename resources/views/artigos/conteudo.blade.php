@@ -92,15 +92,6 @@
                         </div>
 
                         <div class="form-group t-10">
-                            <label class="control-label col-sm-2" for="language">Linguagem:</label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control" id="language" name="language"
-                                       placeholder="Digite a linguagem"
-                                       value="{{$artigo['language'] ?? ''}}">
-                            </div>
-                        </div>
-
-                        <div class="form-group t-10">
                             <label class="control-label col-sm-2" for="author">Autor:</label>
                             <div class="col-sm-10">
                                 <input type="text" class="form-control" id="author" name="author"
