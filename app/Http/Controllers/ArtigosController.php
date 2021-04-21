@@ -45,7 +45,7 @@ class ArtigosController extends Controller
         $tags = Http::get($this->serverTags)->json();
 
         $tagsFilter = array_filter($tags, function ($tag){
-            if($tag['title'] == 'Sobre o App' || $tag['title'] == 'Flora apícola'){
+            if($tag['title'] == 'Sobre o App' || $tag['title'] == 'Flora apícola' || $tag['title'] == 'Luz Vermelha' ){
                 return false;
             }
             return true;
@@ -66,13 +66,13 @@ class ArtigosController extends Controller
             'title' => $request->input('title'),
             'content' => $request->input('content'),
             'tags' => $request->input('tags'),
-            'language' => $request->input('language'),
+            'language' => 'portuguese',
             'author' => $request->input('author')
         ]);
         $status = $artigo->status();
         if ($status==401) {
-            session()->forget('token'); 
-        }   
+            session()->forget('token');
+        }
 
         return redirect('/artigos');
     }
@@ -87,9 +87,9 @@ class ArtigosController extends Controller
     public function edit(string $id)
     {
         $artigo = Http::get($this->server . $id)->json();
-        $tags = Http::get($this->serverTags)->json();        
+        $tags = Http::get($this->serverTags)->json();
         $tagsFilter = array_filter($tags, function ($tag){
-            if($tag['title'] === 'Sobre o App' || $tag['title'] === 'Flora apícola'){
+            if($tag['title'] === 'Sobre o App' || $tag['title'] === 'Flora apícola' || $tag['title'] == 'Luz Vermelha'){
                 return false;
             }
             return true;
@@ -106,13 +106,13 @@ class ArtigosController extends Controller
      * @return Application|RedirectResponse|Response|Redirector
      */
     public function update(Request $request, string $id)
-    {   
+    {
         $token = session('token', '');
         $artigo = Http::withHeaders(['token'=>"Bearer $token"])->put($this->server. $id,[
             'title' => $request->input('title'),
             'content' => $request->input('content'),
             'tags' => $request->input('tags'),
-            'language' => $request->input('language'),
+            'language' => 'portuguese',
             'author' => $request->input('author')
         ]);
 
@@ -127,7 +127,8 @@ class ArtigosController extends Controller
      */
     public function destroy(string $id)
     {
-        Http::delete($this->server . $id);
+        $token = session('token', '');
+        Http::withHeaders(['token'=>"Bearer $token"])->delete($this->server . $id);
         return redirect('/artigos');
     }
 }

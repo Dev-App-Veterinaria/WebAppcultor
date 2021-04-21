@@ -46,7 +46,7 @@ class TagsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {   
+    {
         $token = session('token', '');
         $tags = Http::withHeaders(['token'=>"Bearer $token"])->post($this->server,[
             'title' => $request->title,
@@ -55,8 +55,8 @@ class TagsController extends Controller
         ]);
         $status = $tags->status();
         if ($status==401) {
-            session()->forget('token'); 
-        }   
+            session()->forget('token');
+        }
         return redirect('/tags');
     }
 
@@ -90,8 +90,8 @@ class TagsController extends Controller
         ]);
         $status = $tags->status();
         if ($status==401) {
-            session()->forget('token'); 
-        }   
+            session()->forget('token');
+        }
         return redirect('/tags');
     }
 
@@ -103,7 +103,8 @@ class TagsController extends Controller
      */
     public function destroy($id)
     {
-        Http::delete($this->server . $id);
+        $token = session('token', '');
+        Http::withHeaders(['token'=>"Bearer $token"])->delete($this->server . $id);
         return redirect('/tags');
     }
 }

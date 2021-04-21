@@ -17,7 +17,6 @@
                             <th>Titulo</th>
                             <th>Tags</th>
                             <th>Autor</th>
-                            <th>Linguagem</th>
                         </tr>
                         </thead>
                         <tbody id="table-body">
@@ -138,14 +137,12 @@
             let ref = "<?php echo url('artigos/') ?>";
             let data = pagination(state.querySet, state.page, state.rows);
             let myList = data.querySet;
-            //Dúvida na linha 137
             for (var i in myList) {
                 //Keep in mind we are using "Template Litterals to create rows"
                 let row = `<tr>
             <th scope="row">${myList[i].title}</th>
             <td>${myList[i].tags[0]}</td>
             <td>${myList[i].author ? myList[i].author : ''}</td>
-            <td>${myList[i].language ? myList[i].language : ''}</td>
             <td>
                 <button type="button" class="btn btn-danger rounded-pill fas fa-trash-alt"
                     data-toggle="modal" data-target="#excluirPopUp"
@@ -164,5 +161,5 @@
             pageButtons(data.pages)
         }
     </script>
-    
+
 @endsection

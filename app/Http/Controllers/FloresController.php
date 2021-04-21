@@ -44,7 +44,7 @@ class FloresController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {   
+    {
         $token = session('token', '');
         $flores = Http::withHeaders(['token'=>"Bearer $token"])->post($this->server,[
             'names' => $request->names,
@@ -58,8 +58,8 @@ class FloresController extends Controller
 
         $status = $flores->status();
         if ($status==401) {
-            session()->forget('token'); 
-        }   
+            session()->forget('token');
+        }
         return redirect('/flores');
     }
 
@@ -95,7 +95,7 @@ class FloresController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {   
+    {
         $token = session('token', '');
         $flores = Http::withHeaders(['token'=>"Bearer $token"])->put($this->server.$id,[
             'names' => $request->names,
@@ -109,8 +109,8 @@ class FloresController extends Controller
 
         $status = $flores->status();
         if ($status==401) {
-            session()->forget('token'); 
-        }   
+            session()->forget('token');
+        }
         return redirect('/flores');
     }
 
@@ -122,7 +122,8 @@ class FloresController extends Controller
      */
     public function destroy($id)
     {
-        Http::delete($this->server . $id);
+        $token = session('token', '');
+        Http::withHeaders(['token'=>"Bearer $token"])->delete($this->server . $id);
         return redirect('/flores');
     }
 }
