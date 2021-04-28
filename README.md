@@ -17,7 +17,7 @@ O **WEB Appcultor** foi desenvolvido na linguagem de programação [PHP](https:/
  • **Antônio Neto**, clique [aqui](https://github.com/AntonioAdelino/) para
    acessar o perfil do Github.
    
- • **Gabriel Andrade**, clique [aqui](https://github.com/gabrielZZ231) para acessar o
+ • **Gabriel Aquino**, clique [aqui](https://github.com/gabrielZZ231) para acessar o
    perfil do Github.
    
  • **Pedro Vinícius**, clique [aqui](https://github.com/PedroViniciusMelo) para acessar o
