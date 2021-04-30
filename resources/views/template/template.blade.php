@@ -103,7 +103,7 @@
                                             <li class="nav-item active">
                                                 <a href="/logout" class="nav-link">
                                                     <button type="button" id="btn-logout" class="btn">Sair</button>
-                                                </a> 
+                                                </a>
                                             </li>
                                         </ul>
                                     @endif
@@ -136,8 +136,11 @@
     <!-- copyright section start -->
     <div class="copyright">
         <div class="container">
-            <p class="copyright_text">Copyright 2021 créditos do template.<a href="https://html.design"> Free html
-                    Templates</a></p>
+            <p class="copyright_text">Copyright 2021 créditos do template.
+                <a href="https://html.design"> Free html Templates</a>
+                e
+                <a href="https://www.brasilcode.com.br/30-formularios-de-login-html5-e-css3-gratuitos/">BrasilCode</a>
+            </p>
         </div>
     </div>
 </body>
