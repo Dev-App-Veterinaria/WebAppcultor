@@ -1,5 +1,5 @@
 
-![Appcultor](https://i.imgur.com/PrCToZz.png)
+![Appcultor](https://i.imgur.com/oKMkPdb.png)
 # Bem vindo ao **web Appcultor**!
 
 ![web](https://i.imgur.com/JBVPYX4.png)
